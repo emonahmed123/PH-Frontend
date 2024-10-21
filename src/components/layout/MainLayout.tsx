@@ -7,6 +7,7 @@ const MainLayout = () => {
   return (
     <Layout style={{ height: "100vh" }}>
       <Sider
+        theme="dark"
         breakpoint="lg"
         collapsedWidth="0"
         onBreakpoint={(broken) => {
