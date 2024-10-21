@@ -1,17 +1,11 @@
-import { Layout, Menu, MenuProps } from 'antd';
-import {
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from '@ant-design/icons';
-import { createElement } from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
-import { adminSidebarItems } from '../../routes/admin.routes';
+import { Layout, Menu } from "antd";
+import { adminSidebarItems } from "../../routes/admin.routes";
+import { Outlet } from "react-router-dom";
 const { Header, Content, Footer, Sider } = Layout;
 
 const MainLayout = () => {
   return (
-    <Layout style={{ height: '100vh' }}>
+    <Layout style={{ height: "100vh" }}>
       <Sider
         breakpoint="lg"
         collapsedWidth="0"
@@ -24,12 +18,12 @@ const MainLayout = () => {
       >
         <div
           style={{
-            color: 'white',
+            color: "white",
 
-            height: '4rem',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
+            height: "4rem",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
           <h1>PH Uni</h1>
@@ -37,13 +31,13 @@ const MainLayout = () => {
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={['4']}
+          defaultSelectedKeys={["4"]}
           items={adminSidebarItems}
         />
       </Sider>
       <Layout>
         <Header style={{ padding: 0 }} />
-        <Content style={{ margin: '24px 16px 0' }}>
+        <Content style={{ margin: "24px 16px 0" }}>
           <div
             style={{
               padding: 24,
@@ -53,7 +47,7 @@ const MainLayout = () => {
             <Outlet />
           </div>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>
+        <Footer style={{ textAlign: "center" }}>
           Ant Design ©{new Date().getFullYear()} Created by Ant UED
         </Footer>
       </Layout>
