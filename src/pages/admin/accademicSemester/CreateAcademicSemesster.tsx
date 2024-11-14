@@ -4,14 +4,16 @@ import { Button, Col, Flex } from "antd";
 import PhSelect from "../../../components/form/PhSelect";
 import { monthOptions } from "../../../Constans/gobal";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+
 import { academicSemesterSchma } from "../../../schema/academicMangementSchema";
 import { useAddAcademicSemestersMutation } from "../../../redux/features/admin/accademicMangement.api";
 import { toast } from "sonner";
+import { TResponse } from "../../../types/gobal";
 
 const CreateAcademicSemesster = () => {
   const [addAcademicSemester] = useAddAcademicSemestersMutation();
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const Ids = toast.loading("loading..");
     const name = nameOption[Number(data?.name) - 1]?.label;
 
     const semesterData = {
@@ -22,10 +24,15 @@ const CreateAcademicSemesster = () => {
       endMonth: data.end,
     };
     try {
-      const res = await addAcademicSemester(semesterData);
+      const res = (await addAcademicSemester(semesterData)) as TResponse;
       console.log(res);
+      if (res.error) {
+        toast.error(res.error.data.message, { id: Ids });
+      } else {
+        toast.success(res.data.message, { id: Ids });
+      }
     } catch (error) {
-      toast.error("something went wrong ");
+      toast.error("something went wrong ", { id: Ids });
     }
   };
 

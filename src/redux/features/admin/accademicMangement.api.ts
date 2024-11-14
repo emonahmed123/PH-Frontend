@@ -1,12 +1,22 @@
+import { TQueryParams } from "../../../types/gobal";
 import { baseApi } from "../../api/baseApi";
 
 const academicMangementApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllSemesters: builder.query({
-      query: () => ({
-        url: "/academic-semesters",
-        method: "GET",
-      }),
+      query: (args) => {
+        const params = new URLSearchParams();
+        if (args) {
+          args.forEach((item: TQueryParams) => {
+            params.append(item.name, item.value as string);
+          });
+        }
+        return {
+          url: "/academic-semesters",
+          method: "GET",
+          params: params,
+        };
+      },
     }),
     addAcademicSemesters: builder.mutation({
       query: (data) => ({
@@ -18,4 +28,5 @@ const academicMangementApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useAddAcademicSemestersMutation } = academicMangementApi;
+export const { useAddAcademicSemestersMutation, useGetAllSemestersQuery } =
+  academicMangementApi;
