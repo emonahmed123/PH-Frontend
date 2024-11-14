@@ -5,6 +5,7 @@ import CreateFaculty from "../pages/admin/CreateFaculty";
 import CreateStudent from "../pages/admin/CreateStudent";
 import { NavLink } from "react-router-dom";
 import AcademicSemester from "../pages/admin/accademicSemester/AcademicSemester";
+import CreateAcademicSemesster from "../pages/admin/accademicSemester/CreateAcademicSemesster";
 
 type TRoute = {
   path: string;
@@ -26,6 +27,11 @@ export const adminPaths = [
   {
     name: "Academic Management",
     children: [
+      {
+        name: "Create A. Semester",
+        path: "create-academic-semester",
+        element: <CreateAcademicSemesster />,
+      },
       {
         name: "Academic Semester",
         path: "academic-semester",

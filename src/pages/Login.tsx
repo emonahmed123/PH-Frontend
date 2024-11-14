@@ -1,28 +1,31 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Button } from "antd";
-import { FieldValues, useForm } from "react-hook-form";
+import { Button, Row } from "antd";
+import { FieldValues } from "react-hook-form";
 import { useLoginMutation } from "../redux/features/auth/authApi";
 import { useAppDispatch } from "../redux/hooks";
 import { setUser } from "../redux/features/auth/authSlice";
 import { verifyToken } from "../utils/verifyToken";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import PhFrom from "../components/form/PhFrom";
+import PhInupt from "../components/form/PhInupt";
 const Login = () => {
   const [login] = useLoginMutation();
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const location = useLocation();
-  const { register, handleSubmit } = useForm({
-    defaultValues: {
-      userId: "A-0001",
-      password: "emon",
-    },
-  });
-  console.log(location);
+
+  const defaultValues = {
+    userId: "A-0001",
+    password: "emon",
+  };
 
   const onSubmit = async (data: FieldValues) => {
     const toastId = toast.loading("Logging in");
+
+    console.log(data);
+
     try {
       const userInfo = {
         id: data.userId,
@@ -45,17 +48,19 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <label htmlFor="id">ID: </label>
-        <input type="text" id="id" {...register("userId")} />
-      </div>
-      <div>
-        <label htmlFor="password">Password: </label>
-        <input type="text" id="password" {...register("password")} />
-      </div>
-      <Button htmlType="submit">Login</Button>
-    </form>
+    <Row justify="center" align="middle" style={{ height: "100vh" }}>
+      <PhFrom onSubmit={onSubmit} defaultValues={defaultValues}>
+        <div>
+          <label htmlFor="id">ID: </label>
+          <PhInupt type="text" registers="userId" />
+        </div>
+        <div className="my-5">
+          <label htmlFor="password">Password: </label>
+          <PhInupt type="text" registers="password" />
+        </div>
+        <Button htmlType="submit">Login</Button>
+      </PhFrom>
+    </Row>
   );
 };
 
